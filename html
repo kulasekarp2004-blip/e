@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>E-Shop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="navbar">
+  <div class="logo">E-Shop</div>
+
+  <input type="text" id="searchInput" placeholder="Search products..." />
+
+  <select id="categoryFilter">
+    <option value="all">All</option>
+    <option value="electronics">Electronics</option>
+    <option value="fashion">Fashion</option>
+    <option value="grocery">Grocery</option>
+  </select>
+
+  <div class="nav-actions">
+    <button onclick="openLogin()">Login</button>
+    <button onclick="openSignup()">Signup</button>
+    <button onclick="logout()">logout</button>
+    <div class="cart-icon" onclick="showCart()">
+      🛒 <span id="cartCount">0</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Best Deals Online</h1>
+  <p>Electronics, Fashion & Grocery</p>
+  <button onclick="scrollToProducts()">Shop Now</button>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products" class="product-grid"></section>
+
+<!-- PRODUCT MODAL -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span onclick="closeModal()" class="close">×</span>
+    <img id="modalImg" />
+    <h2 id="modalName"></h2>
+    <p id="modalDesc"></p>
+    <p id="modalPrice"></p>
+    <button onclick="addToCart(currentProduct)">Add to Cart</button>
+  </div>
+</div>
+
+<!-- CART -->
+<div id="cartPage" class="modal">
+  <div class="modal-content cart">
+    <span onclick="closeCart()" class="close">×</span>
+    <h2>Your Cart</h2>
+    <div id="cartItems"></div>
+    <p>Subtotal: ₹<span id="subtotal">0</span></p>
+    <p>Tax (5%): ₹<span id="tax">0</span></p>
+    <h3>Total: ₹<span id="total">0</span></h3>
+    <button onclick="showCheckout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div id="checkoutPage" class="modal">
+  <div class="modal-content">
+    <span onclick="closeCheckout()" class="close">×</span>
+    <h2>Checkout</h2>
+
+    <input placeholder="Full Name" />
+    <input placeholder="Address" />
+    <input placeholder="Phone" />
+
+    <h3>Payment Method</h3>
+    <label><input type="radio" name="pay" checked /> Card</label>
+    <label><input type="radio" name="pay" /> UPI</label>
+    <label><input type="radio" name="pay" /> Cash on Delivery</label>
+
+    <button onclick="placeOrder()">Place Order</button>
+  </div>
+</div>
+<!-- LOGIN -->
+<div class="modal" id="login">
+  <div class="modal-content">
+    <span class="close" onclick="closeLogin()">&times;</span>
+    <h2>Login</h2>
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button>Login</button>
+  </div>
+</div>
+
+<!-- SIGNUP -->
+<div class="modal" id="signup">
+  <div class="modal-content">
+    <span class="close" onclick="closeSignup()">&times;</span>
+    <h2>Signup</h2>
+    <input placeholder="Name">
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+    <button>Signup</button>
+  </div>
+</div>
+
+<div class="modal" id="logout">
+  <div class="modal-content">
+    <span class="close" onclick="logout()">&times;</span>
+    <h2>logout</h2>
+
+    <button>logout</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
