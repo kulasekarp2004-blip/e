@@ -1,0 +1,128 @@
+const products = [
+  { id:1, name:"iPhone 14", price:70000, category:"electronics", img:"Images/apple-iphone-14-pro-max-1.jpg", desc:"Apple smartphone" },
+  { id:2, name:"Laptop", price:55000, category:"electronics", img:"Images/laptop.jpg", desc:"High performance laptop" },
+  { id:3, name:"T-Shirt", price:799, category:"fashion", img:"Images/shirt.jpg", desc:"Cotton T-shirt" },
+  { id:4, name:"Shoes", price:2499, category:"fashion", img:"Images/shoe.jpg", desc:"Running shoes" },
+  { id:5, name:"Rice Bag", price:1200, category:"grocery", img:"Images/rice.jpg", desc:"25kg rice" },
+  { id:6, name:"Oil Pack", price:999, category:"grocery", img:"Images/oil.jpg", desc:"Cooking oil" },
+  { id:7, name:"toys", price:700, category:"games", img:"Images/toys.jpg"},
+  { id:8, name:"Wifi wireless router", price:1099, category:"games", img:"/Images/air.jpg"},
+  { id:9, name:"Ear Buds", price:497, category:"electronics", img:"/Images/buds.jpg"},
+  { id:10, name:"Headphones", price:2000, category:"electronics", img:"/Images/headset-L1.avif"},
+  { id:11, name:"Wallet", price:1000, category:"fashion", img:"/Images/wallet.jpg"},
+  { id:12, name:"Watch", price:2999, category:"electronics", img:"/Images/watch1.jpg"},
+  { id:13, name:"Watch for men", price:3000, category:"electronics", img:"/Images/watch.jpg"}
+];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let currentProduct = null;
+
+const productDiv = document.getElementById("products");
+
+function displayProducts(list) {
+  productDiv.innerHTML = "";
+  list.forEach(p => {
+    productDiv.innerHTML += `
+      <div class="product">
+        <img src="${p.img}" onclick="openModal(${p.id})">
+        <h3>${p.name}</h3>
+        <p>₹${p.price}</p>
+        <button onclick="addToCart(${p.id})">Add to Cart</button>
+      </div>
+    `;
+  });
+}
+
+displayProducts(products);
+
+/* SEARCH & FILTER */
+document.getElementById("searchInput").oninput = e => {
+  const v = e.target.value.toLowerCase();
+  displayProducts(products.filter(p => p.name.toLowerCase().includes(v)));
+};
+
+document.getElementById("categoryFilter").onchange = e => {
+  const c = e.target.value;
+  displayProducts(c === "all" ? products : products.filter(p => p.category === c));
+};
+
+/* MODAL */
+function openModal(id) {
+  currentProduct = id;
+  const p = products.find(x => x.id === id);
+  modalImg.src = p.img;
+  modalName.innerText = p.name;
+  modalDesc.innerText = p.desc;
+  modalPrice.innerText = "₹" + p.price;
+  productModal.style.display = "block";
+}
+
+function closeModal() {
+  productModal.style.display = "none";
+}
+
+/* CART */
+function addToCart(id) {
+  const item = cart.find(i => i.id === id);
+  if (item) item.qty++;
+  else cart.push({ id, qty:1 });
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
+  alert("Added to cart");
+}
+
+function updateCartCount() {
+  cartCount.innerText = cart.reduce((a,b)=>a+b.qty,0);
+}
+
+updateCartCount();
+
+function showCart() {
+  cartPage.style.display = "block";
+  renderCart();
+}
+
+function closeCart() {
+  cartPage.style.display = "none";
+}
+
+function renderCart() {
+  cartItems.innerHTML = "";
+  let sub = 0;
+  cart.forEach(c => {
+    const p = products.find(x=>x.id===c.id);
+    sub += p.price * c.qty;
+    cartItems.innerHTML += `
+      <p>${p.name} (x${c.qty}) - ₹${p.price*c.qty}</p>
+    `;
+  });
+  subtotal.innerText = sub;
+  tax.innerText = Math.round(sub*0.05);
+  total.innerText = sub + Math.round(sub*0.05);
+}
+
+/* CHECKOUT */
+function showCheckout() {
+  cartPage.style.display = "none";
+  checkoutPage.style.display = "block";
+}
+
+function closeCheckout() {
+  checkoutPage.style.display = "none";
+}
+
+function placeOrder() {
+  alert("Order Placed Successfully 🎉");
+  cart = [];
+  localStorage.removeItem("cart");
+  updateCartCount();
+  closeCheckout();
+}
+
+function openLogin(){ document.getElementById("login").style.display="flex"; }
+function closeLogin(){ document.getElementById("login").style.display="none"; }
+function openSignup(){ document.getElementById("signup").style.display="flex"; }
+function closeSignup(){ document.getElementById("signup").style.display="none"; }
+function openlogout(){ document.getElementById("logout").style.display="flex"; }
+function closelogout(){ document.getElementById("logout").style.display="none"; }
