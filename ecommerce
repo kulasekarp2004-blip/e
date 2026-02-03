@@ -1,0 +1,43 @@
+Front-End E-commerce Website
+
+A modern, responsive E-commerce web application built using HTML, CSS, and Vanilla JavaScript.
+This project focuses purely on front-end development with clean UI, smooth user experience, and essential e-commerce features.
+📌 Features
+
+🏠 Home page with hero banner
+
+🛍️ Product listing page (grid layout)
+
+🔍 Product details with image & description
+
+🛒 Add to cart functionality
+
+➕ Increase / decrease product quantity
+
+❌ Remove items from cart
+
+💰 Cart total price calculation
+
+📱 Fully responsive (Mobile, Tablet, Desktop)
+
+🎨 Clean & modern UI design
+
+Technologies Used
+
+HTML5 – Structure
+
+Project Purpose
+
+This project was created to:
+
+Practice HTML, CSS, and JavaScript
+
+Understand DOM manipulation
+
+Build real-world E-commerce UI
+
+Improve front-end development skills
+
+CSS3 – Styling & Responsive Design
+
+JavaScript (Vanilla JS) – Interactivity & Logic
